@@ -1,4 +1,4 @@
-<?php 
+<?php
 header('content-type:text/html;charset=utf-8');
 //1.包含所需文件
 require_once 'swiftmailer-master/lib/swift_required.php';
@@ -26,7 +26,7 @@ if($act==='reg'){
 		//配置邮件服务器，得到传输对象
 		$transport=Swift_SmtpTransport::newInstance('smtp.qq.com',25);
 		//设置登陆帐号和密码
-		$transport->setUsername('490222113@qq.com');
+		$transport->setUsername('3174689@qq.com');
 		$transport->setPassword($emailPassword);
 		//得到发送邮件对象Swift_Mailer对象
 		$mailer=Swift_Mailer::newInstance($transport);
@@ -45,26 +45,26 @@ if($act==='reg'){
 		请点击此链接激活帐号即可登陆！<br/>
 		<a href="{$url}">{$urlencode}</a>
 		<br/>
-		如果点此链接无反映，可以将其复制到浏览器中来执行，链接的有效时间为24小时。		
+		如果点此链接无反映，可以将其复制到浏览器中来执行，链接的有效时间为24小时。
 EOF;
 		$message->setBody("{$str}",'text/html','utf-8');
 		try{
 			if($mailer->send($message)){
 				echo "恭喜您{$username}注册成功，请到邮箱激活之后登陆<br/>";
-				echo '3秒钟后跳转到登陆页面';
-				echo '<meta http-equiv="refresh" content="3;url=index.php#tologin"/>';
+				echo '2秒钟后跳转到登陆页面';
+				echo '<meta http-equiv="refresh" content="2;url=index.php#tologin"/>';
 			}else{
 				$PdoMySQL->delete($table,'id='.$lastInsertId);
 				echo '注册失败，请重新注册';
-				echo '3秒钟后跳转到注册页面';
-				echo '<meta http-equiv="refresh" content="3;url=index.php#toregister"/>';
+				echo '2秒钟后跳转到注册页面';
+				echo '<meta http-equiv="refresh" content="2;url=index.php#toregister"/>';
 			}
 		}catch(Swift_ConnectionException $e){
 			echo '邮件发送错误'.$e->getMessage();
 		}
 	}else{
-		echo '用户注册失败,3秒钟后跳转到注册页面';
-		echo '<meta http-equiv="refresh" content="3;url=index.php#toregister"/>';
+		echo '用户注册失败,2秒钟后跳转到注册页面';
+		echo '<meta http-equiv="refresh" content="2;url=index.php#toregister"/>';
 	}
 }elseif($act==='login'){
 	//完成登陆的功能
@@ -74,9 +74,9 @@ EOF;
 		echo '<meta http-equiv="refresh" content="3;url=index.php#tologin"/>';
 	}else{
 		echo '登陆成功,3秒钟后跳转到首页';
-		echo '<meta http-equiv="refresh" content="3;url=http://www.imooc.com"/>';
+		echo '<meta http-equiv="refresh" content="0;url=http://army.888lh.cn/admin/admin.php"/>';
 	}
-	
+
 }elseif($act==='active'){
 	$token=addslashes($_GET['token']);
 	$row=$PdoMySQL->find($table,"token='{$token}' AND status=0",array('id','token_exptime'));
@@ -93,5 +93,5 @@ EOF;
 			echo '<meta http-equiv="refresh" content="3;url=index.php"/>';
 		}
 	}
-	
+
 }

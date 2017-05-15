@@ -16,6 +16,8 @@ PRAGMA foreign_keys = OFF;
 /*
 原始表结构
 
+需要 增加 户籍所在镇，现居住镇，现常住地址（wyn），维稳镇
+
 */
 
 
@@ -120,8 +122,10 @@ CREATE TABLE `MoneyGetByZMZY`(
   `Money_Code` CHAR(5) NOT NULL COMMENT '用户ID',
   `Money_Bank` VARCHAR(10) COMMENT '开户行',
   `Money_BankCard` VARCHAR(19) COMMENT '卡号',
-  `Money_Number` Money COMMENT '金额',
-  `Money_PayTime` Date COMMENT '发放日期'
+  `Money_Number` Money COMMENT '自谋职业费金额',
+  `Money_PayTime` Date COMMENT '发放日期',
+  `Money_GetMoneySB` VARCHAR(8) '领取人',
+  `Money_BZ` TEXT '备注'
 
 );
 /*
